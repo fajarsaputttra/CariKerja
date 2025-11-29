@@ -23,8 +23,6 @@ Aplikasi ini dirancang untuk menyediakan pengalaman cepat, responsif, dan mudah 
 
 ---
 
----
-
 # 🛠️ Installation & Setup
 
 ### 1. Clone Repository
@@ -44,6 +42,7 @@ npm install
 Buat file `.env`:
 
 VITE_SUPABASE_URL=your-supabase-url
+
 VITE_SUPABASE_ANON_KEY=your-anon-key
 
 
@@ -62,9 +61,38 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
-
-## ▶️ Jalankan Server
+---
+▶️ Jalankan Server
 
 npm run dev
 
 http://localhost:5173
+
+---
+📜 License
+
+Licensed under the MIT License.
+
+---
+👨‍💻 Author
+
+Fajar Saputra
+IT Infrastructure & Fullstack Developer
+GitHub: https://github.com/fajarsaputttra
+
+---
+🔹 Home Page
+
+![Home](./screenshots/home.png)
+
+🔹 Lowongan Kerja
+
+![Jobs](./screenshots/lowongan.png)
+
+🔹 Artikel
+
+![Dashboard](./screenshots/artikel.png)
+
+🔹Dashboard admin
+
+![Dashboard](./screenshots/admin.png)
