@@ -73,19 +73,19 @@ http://localhost:5173
 ---
 🔹 Home Page
 
-![Home](./screenshots/home.png)
+![Home](public/screenshots/home.png)
 
 🔹 Lowongan Kerja
 
-![Jobs](./screenshots/lowongan.png)
+![Jobs](public/screenshots/lowongan.png)
 
 🔹 Artikel
 
-![Dashboard](./screenshots/artikel.png)
+![Dashboard](public/screenshots/artikel.png)
 
 🔹Dashboard admin
 
-![Dashboard](./screenshots/admin.png)
+![Dashboard](public/screenshots/admin.png)
 
 ---
 📜 License
