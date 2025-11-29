@@ -218,7 +218,7 @@ export default function App() {
         ></div>
 
         {/* GRADIENT OVERLAY */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A66C2]/70 via-[#0A66C2]/45 to-transparent"></div>
+        {/* <div className="absolute inset-0 bg-gradient-to-b from-[#0A66C2]/70 via-[#0A66C2]/45 to-transparent"></div> */}
 
         {/* SEARCH CONTENT */}
         <motion.div
@@ -244,8 +244,6 @@ export default function App() {
             w-full 
             mx-auto 
             gap-2 sm:gap-0
-
-            /* MOBILE: tampil kecil & modern */
             scale-95
           "
               >
