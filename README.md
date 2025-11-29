@@ -61,24 +61,14 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
+
+```
 ---
 ▶️ Jalankan Server
 
 npm run dev
 
 http://localhost:5173
-
----
-📜 License
-
-Licensed under the MIT License.
-
----
-👨‍💻 Author
-
-Fajar Saputra
-IT Infrastructure & Fullstack Developer
-GitHub: https://github.com/fajarsaputttra
 
 ---
 🔹 Home Page
@@ -96,3 +86,15 @@ GitHub: https://github.com/fajarsaputttra
 🔹Dashboard admin
 
 ![Dashboard](./screenshots/admin.png)
+
+---
+📜 License
+
+Licensed under the MIT License.
+
+---
+👨‍💻 Author
+
+Fajar Saputra
+IT Infrastructure & Fullstack Developer
+GitHub: https://github.com/fajarsaputttra
