@@ -1,16 +1,70 @@
-# React + Vite
+# 🧭 CariKerja — Modern Job Finder Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CariKerja adalah platform pencarian lowongan kerja modern berbasis web, dibangun menggunakan **React**, **Vite**, dan **Supabase**.  
+Aplikasi ini dirancang untuk menyediakan pengalaman cepat, responsif, dan mudah digunakan, baik untuk pencari kerja maupun admin pengelola lowongan.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 🚀 Tech Stack
 
-## React Compiler
+### **Frontend**
+- React + Vite
+- TailwindCSS (optional)
+- React Router DOM
+- React Icons
+- Context API / Custom Hooks
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### **Backend**
+- Supabase (Database, Auth, Storage)
 
-## Expanding the ESLint configuration
+### **Deployment**
+- Netlify (Frontend)
+- Supabase Hosting (Backend)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+---
+
+# 🛠️ Installation & Setup
+
+### 1. Clone Repository
+
+git clone https://github.com/fajarsaputttra/CariKerja.git
+
+cd CariKerja
+
+
+### 2. Install Dependencies
+
+npm install
+
+
+### 3. Setup Environment Variables
+
+Buat file `.env`:
+
+VITE_SUPABASE_URL=your-supabase-url
+VITE_SUPABASE_ANON_KEY=your-anon-key
+
+
+> 🔒 `.env` sudah di-ignore, jadi aman dari GitHub.
+
+---
+
+# 🔌 Supabase Client
+
+File: `src/lib/supabaseClient.js`
+
+```js
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+export const supabase = createClient(supabaseUrl, supabaseKey);
+
+## ▶️ Jalankan Server
+
+npm run dev
+
+http://localhost:5173
