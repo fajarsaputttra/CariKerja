@@ -44,7 +44,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Routes>
             {/* PUBLIC */}
             <Route path="/" element={<App />} />
-            <Route path="/job/:id" element={<JobDetail />} />
+            <Route path="/job/:slug" element={<JobDetail />} />
             <Route path="/article/:id" element={<ArticleDetail />} />
             <Route path="/lowongan" element={<Lowongan />} />
             <Route path="/artikel" element={<Artikel />} />

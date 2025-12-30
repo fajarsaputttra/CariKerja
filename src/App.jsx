@@ -62,17 +62,18 @@ export default function App() {
       .from("jobs")
       .select(
         `
-        id,
-        title,
-        company,
-        location,
-        job_type,
-        date_posted,
-        apply_link,
-        poster_url,
-        category_id,
-        categories (name)
-      `
+                id,
+                title,
+                slug,
+                company,
+                location,
+                job_type,
+                date_posted,
+                apply_link,
+                poster_url,
+                category_id,
+                categories (name)
+              `
       )
       .order("id", { ascending: false });
 
@@ -504,23 +505,23 @@ export default function App() {
 
                         {/* BUTTON */}
                         <Link
-                          to={`/job/${job.id}`}
+                          to={`/job/${job.slug || job.id}`}
                           className="
-                                      w-full sm:w-auto
-                                      shrink-0
-                                      self-stretch sm:self-center
-                                      bg-[#0A66C2]
-                                      text-white
-                                      px-4 py-2
-                                      sm:px-6 sm:py-3
-                                      text-sm sm:text-base
-                                      rounded-lg sm:rounded-xl
-                                      font-medium
-                                      whitespace-nowrap
-                                      text-center
-                                      hover:bg-blue-700
-                                      transition
-                                    "
+                                    w-full sm:w-auto
+                                    shrink-0
+                                    self-stretch sm:self-center
+                                    bg-[#0A66C2]
+                                    text-white
+                                    px-4 py-2
+                                    sm:px-6 sm:py-3
+                                    text-sm sm:text-base
+                                    rounded-lg sm:rounded-xl
+                                    font-medium
+                                    whitespace-nowrap
+                                    text-center
+                                    hover:bg-blue-700
+                                    transition
+                                  "
                         >
                           Lihat Detail
                         </Link>
@@ -540,72 +541,66 @@ export default function App() {
             transition={{ duration: 0.8 }}
             className="w-full"
           >
-            <h3 className="text-2xl font-bold text-[#0A66C2] mb-5">
+            <h3 className="text-xl sm:text-2xl font-bold text-[#0A66C2] mb-4 sm:mb-5">
               Artikel Terbaru
             </h3>
 
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {articles.length === 0 ? (
                 <p className="text-gray-500 text-sm">Belum ada artikel.</p>
               ) : (
                 articles.slice(0, 3).map((a) => (
                   <motion.div
                     key={a.id}
-                    whileHover={{ y: -3 }}
+                    whileHover={{ y: -2 }}
                     transition={{ duration: 0.2 }}
                     className="
-      bg-white 
-      rounded-xl sm:rounded-2xl 
-      border border-gray-200 
-      shadow-sm hover:shadow-md 
-      transition-transform 
-      overflow-hidden
-    "
+            bg-white
+            rounded-lg sm:rounded-2xl
+            border border-gray-200
+            shadow-sm hover:shadow-md
+            overflow-hidden
+          "
                   >
                     {/* Thumbnail */}
                     <img
                       src={a.image}
                       alt={a.title}
                       className="
-        w-full 
-        h-28 sm:h-40 
-        object-cover
-      "
+              w-full
+              h-20 sm:h-40
+              object-cover
+            "
                     />
 
-                    <div className="p-4 sm:p-5">
+                    <div className="p-3 sm:p-5">
                       {/* Judul */}
                       <h4
                         className="
-        font-semibold 
-        text-gray-800 
-        text-base sm:text-lg 
-        mb-1 sm:mb-2 
-        line-clamp-2
-      "
+                font-semibold
+                text-gray-800
+                text-sm sm:text-lg
+                leading-snug
+                line-clamp-2
+                mb-1
+              "
                       >
                         {a.title}
                       </h4>
 
                       {/* Tanggal */}
-                      <p
-                        className="
-        text-[11px] sm:text-xs 
-        text-gray-400 
-        mb-1 sm:mb-2
-      "
-                      >
+                      <p className="text-[11px] text-gray-400 mb-1">
                         {new Date(a.date_posted).toLocaleDateString("id-ID")}
                       </p>
 
                       {/* Excerpt */}
                       <p
                         className="
-        text-sm sm:text-gray-600 
-        text-[13px] 
-        line-clamp-3 
-        mb-3 sm:mb-4
-      "
+                text-[13px] sm:text-sm
+                text-gray-600
+                line-clamp-2
+                mb-2 sm:mb-3
+              "
                       >
                         {a.excerpt}
                       </p>
@@ -614,11 +609,11 @@ export default function App() {
                       <Link
                         to={`/article/${a.id}`}
                         className="
-          text-[#0A66C2] 
-          font-medium 
-          hover:underline 
-          text-sm
-        "
+                text-[#0A66C2]
+                font-medium
+                text-sm
+                hover:underline
+              "
                       >
                         Baca Selengkapnya →
                       </Link>
@@ -630,38 +625,53 @@ export default function App() {
           </motion.aside>
         </div>
       </main>
-
       {/* FOOTER */}
       <footer
         className="
-          relative w-full 
-          bg-gradient-to-br from-[#0A66C2] to-[#004182] 
-          text-white 
-          pt-12 pb-20 sm:pb-14 
-          mt-20 
-          overflow-hidden
-        "
+    relative w-full 
+    bg-gradient-to-br from-[#0A66C2] to-[#004182] 
+    text-white 
+    pt-10 pb-16 
+    mt-20 
+    overflow-hidden
+  "
       >
+        {/* Glow */}
         <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[360px] h-[360px] bg-white/10 blur-3xl opacity-20 rounded-full"></div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-white/10 blur-3xl opacity-20 rounded-full"></div>
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-8">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
-            <div className="text-center md:text-left space-y-2">
+          {/* TOP */}
+          <div
+            className="
+        flex flex-col 
+        items-center 
+        gap-6
+        sm:flex-row sm:justify-between sm:items-center
+      "
+          >
+            {/* BRAND */}
+            <div className="text-center sm:text-left space-y-2">
               <h2 className="text-xl md:text-2xl font-bold tracking-tight">
                 Carikerja<span className="text-blue-200">.</span>
               </h2>
-
               <p className="text-blue-100 text-sm max-w-sm">
                 Platform pencarian kerja modern untuk membantu masyarakat
-                Indonesia menemukan karier terbaik — cepat, akurat, dan penuh
-                inspirasi.
+                Indonesia menemukan karier terbaik.
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-5 justify-center text-sm text-blue-100">
-              <a href="#home" className="hover:text-white">
+            {/* MENU */}
+            <div
+              className="
+          flex flex-wrap 
+          justify-center 
+          gap-x-4 gap-y-2
+          text-sm text-blue-100
+        "
+            >
+              <a href="/" className="hover:text-white">
                 Beranda
               </a>
               <a href="/lowongan" className="hover:text-white">
@@ -675,10 +685,16 @@ export default function App() {
               </a>
             </div>
 
-            <div className="flex items-center justify-center gap-3">
+            {/* EMAIL ICON */}
+            <div className="flex justify-center">
               <a
                 href="mailto:lokerinfo167@gmail.com"
-                className="p-2 rounded-full bg-white/10 hover:bg-white/20 hover:scale-110 transition"
+                className="
+            p-2 rounded-full 
+            bg-white/10 
+            hover:bg-white/20 
+            transition
+          "
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -698,18 +714,19 @@ export default function App() {
             </div>
           </div>
 
+          {/* DIVIDER */}
           <div className="my-8 border-t border-white/10"></div>
 
+          {/* BOTTOM */}
           <div className="text-center text-xs md:text-sm text-blue-100">
             <p>
               © {new Date().getFullYear()}{" "}
               <span className="font-semibold text-white">Carikerja</span> •
               Membangun masa depan karier Indonesia
             </p>
-
             <p className="mt-1 text-blue-200">
-              Dibuat dengan ❤️ oleh{" "}
-              <span className="font-semibold text-white">Mas Fajar</span>
+              copyright @{" "}
+              <span className="font-semibold text-white">futuredataspeednetwork</span>
             </p>
           </div>
         </div>
