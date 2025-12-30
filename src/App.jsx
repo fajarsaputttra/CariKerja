@@ -21,15 +21,21 @@ export default function App() {
   const [transitioning, setTransitioning] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    fetchCategories();
-    fetchJobs();
-    fetchArticles();
-  }, []);
-
+  // ✅ FIX 1: fetchJobs re-run saat kategori berubah
   useEffect(() => {
     fetchJobs();
   }, [selectedCategory]);
+
+  useEffect(() => {
+    if (dropdownOpen && categories.length === 0) {
+      fetchCategories();
+    }
+  }, [dropdownOpen]);
+
+  // ✅ FIX 2: TANPA delay 800ms
+  useEffect(() => {
+    fetchArticles();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = () => setDropdownOpen(false);
@@ -43,6 +49,7 @@ export default function App() {
       .from("categories")
       .select("*")
       .order("name");
+
     if (error) console.error("Gagal ambil kategori:", error);
     else setCategories(data || []);
   }
@@ -50,6 +57,7 @@ export default function App() {
   // --- Fetch Jobs ---
   async function fetchJobs() {
     setLoading(true);
+
     let query = supabase
       .from("jobs")
       .select(
@@ -68,13 +76,19 @@ export default function App() {
       )
       .order("id", { ascending: false });
 
-    if (selectedCategory) query = query.eq("category_id", selectedCategory);
+    if (selectedCategory) {
+      query = query.eq("category_id", selectedCategory);
+    }
 
     const { data, error } = await query;
-    if (error) console.error(error);
-    else setJobs(data || []);
 
-    setTimeout(() => setLoading(false), 400);
+    if (error) {
+      console.error(error);
+    } else {
+      setJobs(data || []);
+    }
+
+    setLoading(false);
   }
 
   // --- Fetch Articles ---
@@ -83,6 +97,7 @@ export default function App() {
       .from("articles")
       .select("*")
       .order("date_posted", { ascending: false });
+
     if (error) console.error("Gagal ambil artikel:", error);
     else setArticles(data || []);
   }
@@ -191,31 +206,23 @@ export default function App() {
     overflow-hidden
   "
       >
-        {/* DESKTOP IMAGE */}
-        <div
-          className="
-      hidden sm:block 
-      absolute inset-0 
-      w-full h-full
-      bg-cover bg-center bg-no-repeat
-    "
-          style={{
-            backgroundImage: "url('/images/header-desktop.png')",
-          }}
-        ></div>
+        {/* HERO BACKGROUND IMAGE */}
+        <picture className="absolute inset-0 w-full h-full">
+          {/* MOBILE */}
+          <source
+            media="(max-width: 640px)"
+            srcSet="/images/header-mobile.webp"
+          />
 
-        {/* MOBILE IMAGE */}
-        <div
-          className="
-      sm:hidden 
-      absolute inset-0 
-      w-full h-full
-      bg-cover bg-center bg-no-repeat
-    "
-          style={{
-            backgroundImage: "url('/images/header-mobile.png')",
-          }}
-        ></div>
+          {/* DESKTOP */}
+          <img
+            src="/images/header-desktop.webp"
+            alt="Hero background"
+            className="w-full h-full object-cover object-center"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </picture>
 
         {/* GRADIENT OVERLAY */}
         {/* <div className="absolute inset-0 bg-gradient-to-b from-[#0A66C2]/70 via-[#0A66C2]/45 to-transparent"></div> */}
@@ -455,17 +462,15 @@ export default function App() {
           w-full
         "
                     >
-                      <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 sm:gap-4">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
                         {/* LEFT */}
-                        <div>
-                          <h2 className="text-lg sm:text-2xl font-bold text-gray-800 leading-snug">
+                        <div className="flex-1 min-w-0">
+                          <h2 className="text-lg sm:text-2xl font-bold text-gray-800 leading-snug line-clamp-2">
                             {job.title}
                           </h2>
-
-                          <p className="text-sm sm:text-lg text-gray-600 mt-1">
+                          <p className="text-sm sm:text-lg text-gray-600 mt-1 line-clamp-1">
                             {job.company} • {job.location}
                           </p>
-
                           <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-2">
                             {job.job_type && (
                               <span
@@ -501,17 +506,21 @@ export default function App() {
                         <Link
                           to={`/job/${job.id}`}
                           className="
-              bg-[#0A66C2] 
-              text-white 
-              px-4 py-2 
-              sm:px-6 sm:py-3
-              text-sm sm:text-lg 
-              rounded-lg sm:rounded-xl 
-              font-medium 
-              text-center
-              hover:bg-blue-700 
-              transition
-            "
+                                      w-full sm:w-auto
+                                      shrink-0
+                                      self-stretch sm:self-center
+                                      bg-[#0A66C2]
+                                      text-white
+                                      px-4 py-2
+                                      sm:px-6 sm:py-3
+                                      text-sm sm:text-base
+                                      rounded-lg sm:rounded-xl
+                                      font-medium
+                                      whitespace-nowrap
+                                      text-center
+                                      hover:bg-blue-700
+                                      transition
+                                    "
                         >
                           Lihat Detail
                         </Link>
@@ -638,7 +647,7 @@ export default function App() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
             <div className="text-center md:text-left space-y-2">
               <h2 className="text-xl md:text-2xl font-bold tracking-tight">
                 Carikerja<span className="text-blue-200">.</span>
